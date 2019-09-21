@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
+using MediatR;
+using Application.Activities;
 
 namespace API
 {
@@ -31,6 +33,14 @@ namespace API
             {
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", cor =>
+                {
+                    cor.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                });
+            });
+            services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -48,6 +58,7 @@ namespace API
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }
