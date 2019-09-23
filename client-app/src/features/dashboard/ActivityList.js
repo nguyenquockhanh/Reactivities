@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Item, Button, Label, Segment } from "semantic-ui-react";
+import {ActivityContext} from "../../app/contexts";
 
-const ActivityList = ({ activities, selectActivity, deleteActivity, submitting, target }) => {
+const ActivityList = () => {
+  const context = useContext(ActivityContext);
+  const { activities, handleSelectActivity, deleteActivity, submitting, target } = context;
   return (
     <Segment>
       <Item.Group divided>
@@ -19,7 +22,7 @@ const ActivityList = ({ activities, selectActivity, deleteActivity, submitting, 
               <Item.Extra>
                 <Button
                   content="View"
-                  onClick={() => selectActivity(activity.id)}
+                  onClick={() => handleSelectActivity(activity.id)}
                   floated="right"
                   color="blue"
                 />

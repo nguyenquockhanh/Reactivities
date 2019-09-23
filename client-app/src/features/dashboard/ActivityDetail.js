@@ -1,21 +1,25 @@
-import React from "react";
-import {Card, Icon, Image, Button} from 'semantic-ui-react';
+import React, {useContext} from "react";
+import {Card, Image, Button} from 'semantic-ui-react';
+import {ActivityContext} from "../../app/contexts";
 
-const ActivityDetail = ({setEditMode, activity}) => {
+const ActivityDetail = () => {
+  const context = useContext(ActivityContext);
+  let {setEditMode, selectedActivity} = context;
+
   return (
     <Card fluid>
       <Image
-        src={`/assets/categoryImages/${activity.category}.jpg`}
+        src={`/assets/categoryImages/${selectedActivity.category}.jpg`}
         wrapped
-        ui={false} ui={false} wrapped
+        ui={false} 
       />
       <Card.Content>
-        <Card.Header>{activity.title}</Card.Header>
+        <Card.Header>{selectedActivity.title}</Card.Header>
         <Card.Meta>
-          <span className="date">{activity.date}</span>
+          <span className="date">{selectedActivity.date}</span>
         </Card.Meta>
         <Card.Description>
-          {activity.description}
+          {selectedActivity.description}
         </Card.Description>
       </Card.Content>
       <Card.Content extra>

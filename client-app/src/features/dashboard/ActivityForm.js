@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Segment, Form, Button } from "semantic-ui-react";
-import { v4 as uuid } from "uuid";
+import {ActivityContext} from "../../app/contexts";
 
-const ActivityForm = ({ setEditMode, activity, createOrUpdateActivity, submitting }) => {
-  
+const ActivityForm = () => {
+  const context = useContext(ActivityContext);
+  let { setEditMode, selectedActivity, createOrUpdateActivity, submitting } = context;
   const initializeForm = () => {
-    if (activity) {
-      return activity;
+    if (selectedActivity) {
+      return selectedActivity;
     } else {
       return {
         title: "",
